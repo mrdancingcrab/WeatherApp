@@ -1,0 +1,165 @@
+/* General Styling */
+body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+/* Weather App Container */
+.weather-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Title */
+.app-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Input & Button */
+.input-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-input {
+    width: 250px;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+    .weather-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .weather-input:focus {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+/* Button */
+.weather-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #ffcc00, #ff6600);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+    .weather-button:hover {
+        background: linear-gradient(45deg, #ffdb4d, #ff7f50);
+    }
+
+/* Weather Card */
+.weather-card {
+    margin-top: 20px;
+    padding: 20px;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* City Name */
+.city-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Weather Icon */
+.weather-icon {
+    width: 100px;
+    height: 100px;
+}
+
+/* Weather Description */
+.weather-description {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+/* Weather Details */
+.weather-details {
+    text-align: left;
+    margin-top: 10px;
+}
+
+    .weather-details p {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+
+/* Forecast Styling */
+.forecast-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.forecast-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 120px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+    .forecast-card img {
+        width: 50px;
+    }
+
+
+/* Error Message */
+#blazor-error-ui {
+    margin-top: 10px;
+    color: #ff4444;
+    font-weight: bold;
+    background: rgba(255, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

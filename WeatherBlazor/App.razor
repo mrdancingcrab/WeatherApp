@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Components
+
+<CascadingValue Value="bodyClass">
+    <div class="@bodyClass">
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                <RouteView RouteData="@routeData" />
+            </Found>
+            <NotFound>
+                <h3>Sorry, the page you are looking for does not exist!</h3>
+            </NotFound>
+        </Router>
+    </div>
+</CascadingValue>
+
+@code {
+    private string bodyClass = "default"; // ✅ Ensure bodyClass exists here
+}

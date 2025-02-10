@@ -1,0 +1,87 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components
+@inject WeatherService WeatherService
+
+<div class="weather-container">
+    <h1 class="app-title">🌤️ Stunning Weather App</h1>
+
+    <div class="input-container">
+        <input @bind="city" class="weather-input" placeholder="Enter city name..." />
+        <button @onclick="GetWeather" class="weather-button">Get Weather</button>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-message">
+            @errorMessage
+        </div>
+    }
+
+    @if (weather != null)
+    {
+        <div class="weather-card">
+            <h2 class="city-name">@weather.City</h2>
+            <img src="@weatherIconUrl" class="weather-icon" alt="Weather icon" />
+            <p class="weather-description">@weather.Description</p>
+
+            <div class="weather-details">
+                <p><strong>Temperature:</strong> @weather.Temperature°C</p>
+                <p><strong>Feels Like:</strong> @weather.FeelsLike°C</p>
+                <p><strong>Wind Speed:</strong> @weather.WindSpeed m/s</p>
+                <p><strong>Humidity:</strong> @weather.Humidity%</p>
+            </div>
+        </div>
+    }
+
+    @if (forecast != null && forecast.Forecasts.Count > 0)
+    {
+        <h2>5-Day Forecast</h2>
+        <div class="forecast-container">
+            @foreach (var entry in forecast.Forecasts)
+            {
+                <div class="forecast-card">
+                    <p>@entry.Date.ToString("dddd, MMM dd")</p>
+                    <img src="@($"https://openweathermap.org/img/wn/{entry.IconCode}@2x.png")" alt="Weather icon" />
+                    <p>@entry.Description</p>
+                    <p><strong>@entry.Temperature°C</strong></p>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private string city = "";
+    private WeatherData? weather;
+    private WeatherForecast? forecast = new WeatherForecast(); // ✅ Ensure it's not null
+    private string? errorMessage;
+    private string weatherIconUrl = "";
+
+    private async Task GetWeather()
+    {
+        errorMessage = null;
+        weather = null;
+        forecast = new WeatherForecast(); // ✅ Reset forecast before fetching
+        weatherIconUrl = ""; // Reset previous icon
+
+        if (!string.IsNullOrWhiteSpace(city))
+        {
+            var (data, error) = await WeatherService.GetWeatherAsync(city);
+            var forecastData = await WeatherService.GetForecastAsync(city); // ✅ Fetch Forecast
+
+            if (error != null)
+            {
+                errorMessage = error;
+            }
+            else
+            {
+                weather = data;
+                forecast = forecastData ?? new WeatherForecast(); // ✅ Prevent null forecast
+                if (weather != null && !string.IsNullOrWhiteSpace(weather.IconCode))
+                {
+                    weatherIconUrl = $"https://openweathermap.org/img/wn/{weather.IconCode}@2x.png";
+                }
+            }
+        }
+    }
+}
